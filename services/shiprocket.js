@@ -105,12 +105,127 @@ const cancelOrder = async (data) => {
         throw new Error(error);
     }
 };
+// This API can be used to assign the AWB (Air Waybill Number) to your shipment. The AWB is a unique number that helps you track the shipment and get details about it.
+const assignAWB = async (data) => {
+    try {
+        // can get token from db or session
+        const result = await axiosInstance.post(
+            SHIPROCKET.GENERATE_AWB_URL,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return result.data;
+    } catch (error) {
+        console.error('Error - in assignAWB');
+        throw new Error(error);
+    }
+};
+const addpickupLocation = async (data) => {
+    try {
+        // can get token from db or session
+        const result = await axiosInstance.post(
+            SHIPROCKET.ADD_PICKUP_LOCATION_URL,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return result.data;
+    } catch (error) {
+        console.error('Error - in addpickupLocation');
+        throw new Error(error);
+    }
+};
+const generateLabel = async (data) => {
+    try {
+        // can get token from db or session
+        const result = await axiosInstance.post(
+            SHIPROCKET.GENERATE_LABEL,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return result.data;
+    } catch (error) {
+        console.error('Error - in generateLabel');
+        throw new Error(error);
+    }
+};
+const generateInvoice = async (data) => {
+    try {
+        // can get token from db or session
+        const result = await axiosInstance.post(
+            SHIPROCKET.GENERATE_INVOICE,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return result.data;
+    } catch (error) {
+        console.error('Error - in generateInvoice');
+        throw new Error(error);
+    }
+};
+const generateManifest = async (data) => {
+    try {
+        // can get token from db or session
+        const result = await axiosInstance.post(
+            SHIPROCKET.GENERATE_MANIFEST,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return result.data;
+    } catch (error) {
+        console.error('Error - in generateManifest');
+        throw new Error(error);
+    }
+};
+const shipmentPickup = async (data) => {
+    try {
+        // can get token from db or session
+        const result = await axiosInstance.post(
+            SHIPROCKET.SHIPMENT_PICKUP_URL,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return result.data;
+    } catch (error) {
+        console.error('Error - in shipmentPickup');
+        throw new Error(error);
+    }
+};
 
 module.exports = {
     login,
+    addpickupLocation,
     createCustomOrder,
     createChannelSpecificOrder,
     updatePickupLocation,
     updateCustomerDeliveryAddress,
+    generateInvoice,
     cancelOrder,
+    assignAWB,
+    generateLabel,
+    generateManifest,
+    shipmentPickup,
 };

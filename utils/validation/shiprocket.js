@@ -204,15 +204,54 @@ const updateCustomerDeliveryAddressSchema = Joi.object({
     billing_alternate_phone: Joi.string().allow('').optional(),
 });
 
-const cancelOrderSchema = Joi.object({
+const orderIdsSchema = Joi.object({
     ids: Joi.array().items(Joi.number().integer().required()).required(),
 });
 
+const assignAWBSchema = Joi.object({
+    shipment_id: Joi.string().required(),
+    courier_id: Joi.string().allow('').optional(),
+    status: Joi.string().allow('').optional(),
+});
+
+const addPickupLocationSchema = Joi.object({
+    pickup_location: Joi.string().max(36).required(),
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    phone: Joi.string().required(),
+    address: Joi.string().max(80).required(),
+    address_2: Joi.string().allow('').optional(),
+    city: Joi.string().required(),
+    state: Joi.string().required(),
+    country: Joi.string().required(),
+    pin_code: Joi.number().integer().required(),
+    lat: Joi.number().optional(),
+    long: Joi.number().optional(),
+    address_type: Joi.string().allow('').optional(),
+    vendor_name: Joi.string().allow('').optional(),
+    gstin: Joi.string().allow('').optional(),
+});
+
+const shipmentIdsSchema = Joi.object({
+    shipment_id: Joi.array().items(Joi.string()).min(1).required(),
+});
+
+const shipmentPickupSchema = Joi.object({
+    shipment_id: Joi.array().items(Joi.number().integer()).min(1).required(),
+    status: Joi.string().valid('retry').optional(),
+    pickup_date: Joi.array()
+        .items(Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/))
+        .optional(),
+});
 module.exports = {
     loginSchema,
     createCustomOrderSchema,
     createChannelSpecificOrderSchema,
     updatePickupLocationSchema,
     updateCustomerDeliveryAddressSchema,
-    cancelOrderSchema,
+    orderIdsSchema,
+    assignAWBSchema,
+    addPickupLocationSchema,
+    shipmentIdsSchema,
+    shipmentPickupSchema,
 };
